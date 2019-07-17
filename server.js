@@ -21,7 +21,12 @@ const isProd = process.env.NODE_ENV == "production";
 
 // DB setup - Mongoose
 mongoose.Promise = global.Promise;
-mongoose.connect( isProd ? "" : "mongodb://localhost/reddit-clone", { useNewUrlParser: true });
+mongoose.connect(
+  isProd
+    ? "mongodb://<dbuser>:<dbpassword>@ds149905.mlab.com:49905/heroku_xp1d111z"
+    : "mongodb://localhost/reddit-clone",
+  { useNewUrlParser: true }
+);
 
 // app.use(cors());
 app.use(logger("dev"));
