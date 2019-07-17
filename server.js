@@ -12,8 +12,11 @@ const passport = require("passport");
 const flash = require("connect-flash");
 const errorHandler = require("errorhandler");
 
+const credentials = require("./config/credentials.json");
+
+
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 
 const isDev = process.env.NODE_ENV !== "production";
@@ -23,7 +26,7 @@ const isProd = process.env.NODE_ENV == "production";
 mongoose.Promise = global.Promise;
 mongoose.connect(
   isProd
-    ? "mongodb://<dbuser>:<dbpassword>@ds149905.mlab.com:49905/heroku_xp1d111z"
+    ? credentials.mlab.uri
     : "mongodb://localhost/reddit-clone",
   { useNewUrlParser: true }
 );
@@ -81,5 +84,5 @@ require("./config/passport");
 app.use(require("./routes"));
 
 app.listen(port, function() {
-  console.log(`Node js Express js Tutorial - listening on http://localhost:${port}`);
+  console.log(isProd ? `Launced!` : `listening on http://localhost:${port}`);
 });
