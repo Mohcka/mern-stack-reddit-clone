@@ -87,7 +87,7 @@ class App extends Component {
 
   updateLogin() {
     axios
-      .get("/api/users/user/")
+      .get("/api/users/users/")
       .then(res => {
         if (res.data.user) {
           console.log(res.data.user);
