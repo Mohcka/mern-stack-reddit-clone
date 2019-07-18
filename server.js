@@ -3,9 +3,9 @@ const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const cookieSession = require("cookie-session");
 const logger = require("morgan");
 const sassMiddleware = require("node-sass-middleware");
-const session = require("express-session");
 const cors = require("cors");
 const mongoose = require("mongoose");
 const passport = require("passport");
@@ -40,11 +40,9 @@ app.use(bodyParser.json());
 
 app.use(cookieParser());
 app.use(
-  session({
+  cookieSession({
     secret: "passport-tutorial",
-    cookie: { maxAge: 600000 },
-    resave: false,
-    saveUninitialized: false
+    maxAge: 600000 
   })
 );
 app.use(passport.initialize());
