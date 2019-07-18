@@ -82,5 +82,5 @@ require("./config/passport");
 app.use(require("./routes"));
 
 app.listen(port, function() {
-  console.log(isProd ? `Launced!` : `listening on http://localhost:${port}`);
+  console.log(isProd ? `Launched!` : `listening on http://localhost:${port}`);
 });
