@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "cross-env NODE_ENV=production node ./server",
-    "deploy": "cross-env NODE_ENV=production webpack --mode production && git commit -am \"deploy\" && git push heroku master",
+    "deploy": "cross-env NODE_ENV=production webpack --mode production && git commit -am \"deploy\"",
     "dev:server": "cross-env NODE_ENV=development nodemon server.js",
     "dev": "cross-env NODE_ENV=development webpack --mode development",
     "dev:watch": "cross-env NODE_ENV=development webpack --mode development --watch",
