@@ -87,7 +87,8 @@ class App extends Component {
 
   updateLogin() {
     axios
-      .get("/api/users/users/")
+    // fetch the logged in user for the current instance if there is one
+      .get("/api/users/user/") 
       .then(res => {
         if (res.data.user) {
           console.log(res.data.user);
