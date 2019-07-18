@@ -87,7 +87,7 @@ class App extends Component {
 
   updateLogin() {
     axios
-      .get("http://localhost:3000/api/users/user/")
+      .get("/api/users/user/")
       .then(res => {
         if (res.data.user) {
           console.log(res.data.user);
@@ -102,7 +102,7 @@ class App extends Component {
 
   logout() {
     axios
-      .get("http://localhost:3000/api/users/logout/")
+      .get("/api/users/logout/")
       .then(res =>{ 
         this.setState({ userSession: null })
         
