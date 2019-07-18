@@ -39,7 +39,7 @@ class CreatePost extends Component {
       poster: this.props.user ? this.props.user._id : 0
     };
 
-    axios.post("http://localhost:3000/api/posts/add", newPost).then(res => {
+    axios.post("/api/posts/add", newPost).then(res => {
       console.log(res);
       this.props.history.push("/");
     });

@@ -17,7 +17,7 @@ class Posts extends Component {
 
   componentDidMount() {
     axios
-      .get("http://localhost:3000/api/posts/count/")
+      .get("/api/posts/count/")
       .then(response => {
         console.log(`There are ${response.data.count} documents`);
 
