@@ -1,30 +1,39 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Link, withRouter } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Link,
+  withRouter
+} from "react-router-dom";
 import axios from "axios";
 
-// Bootstrap
+//* Bootstrap
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/js/dist/dropdown";
 
-//Auth Components
+//* Auth Components
 import Login from "./js/components/auth/login.component";
 import SignUp from "./js/components/auth/signup.component";
 
-// Post Componentes
+//* Post Componentes
 import Index from "./js/components/index.component";
 import CreatePost from "./js/components/posts/create-post.component";
 import EditPost from "./js/components/posts/EditPost.component";
 import PostsPage from "./js/components/posts/PostsPage.component";
 import PostPage from "./js/components/posts/PostPage.component";
 
-// Profile Component
+//* Profile Component
 import ProfilePage from "./js/components/users/ProfilePage.component";
 
-// Comment Components
+//* Comment Components
 import CreateComment from "./js/components/comments/CreateComment.component";
 import EditComment from "./js/components/comments/EditComment.component";
 
-// Assets
+//* 404
+import NoMatch from "./js/components/NoMatch.component";
+
+//* Assets
 import logo from "./logo.svg";
 
 // Component used to display login/signup navigation
@@ -87,8 +96,8 @@ class App extends Component {
 
   updateLogin() {
     axios
-    // fetch the logged in user for the current instance if there is one
-      .get("/api/users/user/") 
+      // fetch the logged in user for the current instance if there is one
+      .get("/api/users/user/")
       .then(res => {
         if (res.data.user) {
           console.log(res.data.user);
@@ -104,9 +113,8 @@ class App extends Component {
   logout() {
     axios
       .get("/api/users/logout/")
-      .then(res =>{ 
-        this.setState({ userSession: null })
-        
+      .then(res => {
+        this.setState({ userSession: null });
       })
       .catch(err => console.error(err));
   }
@@ -120,17 +128,14 @@ class App extends Component {
     let logNavEl = $.isEmptyObject(this.state.userSession) ? (
       <LoginSignUp />
     ) : (
-      <Logout
-        user={this.state.userSession.email}
-        handleLogin={this.logout}
-      />
+      <Logout user={this.state.userSession.email} handleLogin={this.logout} />
     );
 
     return (
       <Router>
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="http://404.com/" className="navbar-brand" target="_blank">
+            <a href="/" className="navbar-brand" target="_blank">
               <img src={logo} alt="Boop" width="30" height="30" />
             </a>
             <Link to="/" className="navbar-brand">
@@ -142,63 +147,65 @@ class App extends Component {
             </div>
           </nav>
           <br />
-
-          <Route
-            path="/"
-            exact
-            render={props => (
-              <PostsPage {...props} userSession={this.state.userSession} />
-            )}
-          />
-          <Route
-            path="/posts/:page"
-            render={props => (
-              <PostsPage {...props} userSession={this.state.userSession} />
-            )}
-          />
-          <Route
-            path="/post/show/:id"
-            render={props => (
-              <PostPage {...props} user={this.state.userSession} />
-            )}
-          />
-          <Route path="/post/edit/:id" component={EditPost} />
-          <Route
-            path="/profile/:id"
-            render={props => (
-              <ProfilePage {...props} user={this.state.userSession} />
-            )}
-          />
-          <Route
-            path="/create/post"
-            render={props => (
-              <CreatePost {...props} user={this.state.userSession} />
-            )}
-          />
-          <Route
-            path="/create/comment/:post_id"
-            render={props => (
-              <CreateComment {...props} user={this.state.userSession} />
-            )}
-          />
-          <Route
-            path="/edit/comment/:comment_id"
-            render={props => (
-              <EditComment {...props} user={this.state.userSession} />
-            )}
-          />
-          <Route
-            path="/login"
-            render={props => (
-              <Login {...props} handleLogin={this.updateLogin} />
-            )}
-          />
-          <Route
-            path="/signup"
-            render={props => (
-              <SignUp {...props} handleLogin={this.updateLogin} />
-            )}
-          />
+          <Switch>
+            <Route
+              path="/"
+              exact
+              render={props => (
+                <PostsPage {...props} userSession={this.state.userSession} />
+              )}
+            />
+            <Route
+              path="/posts/:page"
+              render={props => (
+                <PostsPage {...props} userSession={this.state.userSession} />
+              )}
+            />
+            <Route
+              path="/post/show/:id"
+              render={props => (
+                <PostPage {...props} user={this.state.userSession} />
+              )}
+            />
+            <Route path="/post/edit/:id" component={EditPost} />
+            <Route
+              path="/profile/:id"
+              render={props => (
+                <ProfilePage {...props} user={this.state.userSession} />
+              )}
+            />
+            <Route
+              path="/create/post"
+              render={props => (
+                <CreatePost {...props} user={this.state.userSession} />
+              )}
+            />
+            <Route
+              path="/create/comment/:post_id"
+              render={props => (
+                <CreateComment {...props} user={this.state.userSession} />
+              )}
+            />
+            <Route
+              path="/edit/comment/:comment_id"
+              render={props => (
+                <EditComment {...props} user={this.state.userSession} />
+              )}
+            />
+            <Route
+              path="/login"
+              render={props => (
+                <Login {...props} handleLogin={this.updateLogin} />
+              )}
+            />
+            <Route
+              path="/signup"
+              render={props => (
+                <SignUp {...props} handleLogin={this.updateLogin} />
+              )}
+            />
+            <Route component={NoMatch} />
+          </Switch>
         </div>
       </Router>
     );
