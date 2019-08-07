@@ -22,8 +22,14 @@ class PostPage extends Component {
       .then(res => {
         console.log("Post is");
         console.log(res.data);
+        // If the post wasnt found redirect to 404
+        if(!res.data.post){
+          this.props.history.push('/404');
+        } else {
+          this.setState({ post: res.data });
+        }
 
-        this.setState({ post: res.data });
+        
       })
       .catch(err => console.error(err));
   }

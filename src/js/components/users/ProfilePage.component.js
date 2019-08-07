@@ -44,12 +44,16 @@ class Profile extends Component {
 
     // fetch all posts created by user
     axios.get(`/api/posts/user/${user_id}`).then(response => {
-      console.log(response.data);
-
-      this.setState({
-        // returns object of each user post returned schema: { post, poster, title, votes }
-        user_posts: response.data
-      });
+      console.log("PRofile:");
+      console.log(response.data.email);
+      if (!response.data.email) {
+        this.props.history.push("/404");
+      } else {
+        this.setState({
+          // returns object of each user post returned schema: { post, poster, title, votes }
+          user_posts: response.data
+        });
+      }
     });
   }
 

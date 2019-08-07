@@ -21,12 +21,19 @@ class CreatePost extends Component {
     axios
       .get(`/api/posts/${this.props.match.params.id}`)
       .then(res => {
-        let post = res.data;
-        this.setState({
-          title: post.title,
-          post: post.post,
-          votes: post.votes
-        });
+        // If post not found redirect to 404
+        if(!res.data.post){
+          this.props.history.push('/404');
+        } else {
+          let post = res.data;
+          this.setState({
+            title: post.title,
+            post: post.post,
+            votes: post.votes
+          });
+        }
+
+        
       })
       .catch(err => console.error(err));
   }

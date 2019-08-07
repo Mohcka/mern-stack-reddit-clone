@@ -151,7 +151,7 @@ CommentRouter.route("/add").post((req, res) => {
       .catch(err => {
         console.error(err);
 
-        return res.status(500).json({ error: "Something went wrong :(" });
+        return res.json({ error: "Something went wrong :(" });
       });
   } else {
     console.error("You need to be logged in first");

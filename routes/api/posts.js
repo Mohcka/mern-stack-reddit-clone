@@ -80,6 +80,7 @@ PostRouter.route("/:id").get(function(req, res) {
   Post.findById(id)
   .populate("poster", "email")
   .exec( function(err, post) {
+
     res.json(post);
   });
 });

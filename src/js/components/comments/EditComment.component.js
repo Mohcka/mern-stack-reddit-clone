@@ -7,7 +7,10 @@ class EditComment extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comment: ""
+      comment: null,
+      title: null,
+      votes: 0,
+      post: null
     };
 
     this.onChangeComment = this.onChangeComment.bind(this);
@@ -15,19 +18,26 @@ class EditComment extends Component {
   }
 
   componentDidMount() {
+    // get the comment to edit from it's id
     axios
       .get(`/api/comments/${this.props.match.params.comment_id}`)
       .then(res => {
-        let comment = res.data;
-        console.log('Comment is');
-        console.log(comment);
-        
-        this.setState({
-          title: comment.title,
-          comment: comment.comment,
-          votes: comment.votes,
-          post: comment.post
-        });
+        // if the comment to edit was not found, redirect 404
+        if (!res.data.post) {
+          this.props.history.push("/404");
+        } else {
+          let comment = res.data;
+          console.log("Comment is");
+          console.log(comment);
+
+          // set values state to be retrieved comments
+          this.setState({
+            title: comment.title,
+            comment: comment.comment,
+            votes: comment.votes,
+            post: comment.post
+          });
+        }
       })
       .catch(err => console.error(err));
   }

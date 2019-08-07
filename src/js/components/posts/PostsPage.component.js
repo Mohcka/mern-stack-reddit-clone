@@ -22,6 +22,7 @@ function Index(props) {
           <PostsContainer
             userSession={props.userSession}
             page={props.match.params.page ? props.match.params.page : 1}
+            history={props.history}
           />
         </div>
         <div className="col-3 offset-1">

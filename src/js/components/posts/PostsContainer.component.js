@@ -20,7 +20,6 @@ class Posts extends Component {
       .get("/api/posts/count/")
       .then(response => {
         console.log(`There are ${response.data.count} documents`);
-
         this.setState({ count: response.data.count });
       })
       .catch(function(error) {
@@ -34,9 +33,18 @@ class Posts extends Component {
     axios
       .get("/api/posts/page/" + page)
       .then(response => {
-        console.log(response.data);
+        console.log(response.data.length);
 
-        this.setState({ posts: response.data });
+        // Redirect to 404 if no page was found
+        if (response.data.length == 0) {
+          console.log(404);
+          
+          this.props.history.push("/404");
+        } else {
+          this.setState({
+            posts: response.data
+          });
+        }
       })
       .catch(function(error) {
         console.log(error);
