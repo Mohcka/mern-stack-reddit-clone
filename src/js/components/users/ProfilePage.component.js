@@ -45,8 +45,8 @@ class Profile extends Component {
     // fetch all posts created by user
     axios.get(`/api/posts/user/${user_id}`).then(response => {
       console.log("PRofile:");
-      console.log(response.data.email);
-      if (!response.data.email) {
+      console.log(response.data);
+      if (response.data.length == 0) {
         this.props.history.push("/404");
       } else {
         this.setState({
