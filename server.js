@@ -82,7 +82,7 @@ require("./models/_setupdb");
 let dbRefresh = setInterval(function() {
   require("./models/_setupdb");
   console.log("Database Reset!");
-}, 15 * 60 * 1000);
+}, 24 * 60 * 60 * 1000);
 require("./config/passport");
 app.use(require("./routes"));
 
