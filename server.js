@@ -78,6 +78,8 @@ app.get(/^\/(?!api\/.*\/).*/, function(req, res) {
 
 // app.use("/reddit-clone-api/posts", PostRouter);
 require("./models/_setupdb");
+// reset the database every 15 minutes
+let dbRefresh = setInterval(() => require("./models/_setupdb"), 15 * 60 * 1000);
 require("./config/passport");
 app.use(require("./routes"));
 
