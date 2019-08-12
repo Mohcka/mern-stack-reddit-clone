@@ -80,9 +80,9 @@ app.get(/^\/(?!api\/.*\/).*/, function(req, res) {
 require("./models/_setupdb");
 // reset the database every 15 minutes
 let dbRefresh = setInterval(function() {
-  require("./models/_setupdb"), 15 * 60 * 1000;
-  console.log("Database Reset!")
-});
+  require("./models/_setupdb");
+  console.log("Database Reset!");
+}, 15 * 60 * 1000);
 require("./config/passport");
 app.use(require("./routes"));
 
