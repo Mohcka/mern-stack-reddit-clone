@@ -106,12 +106,12 @@ let commentData = [
 
 // User mock data
 let user1 = new User({
-  email: "Kratos",
+  username: "Kratos",
   password: "test"
 });
 
 let user2 = new User({
-  email: "Monkey",
+  username: "Monkey",
   password: "test"
 });
 

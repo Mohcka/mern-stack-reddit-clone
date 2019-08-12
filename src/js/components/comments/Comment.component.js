@@ -111,7 +111,7 @@ class Comment extends Component {
             <span className="mx-1" />
             By&nbsp;
             <Link to={`/profile/${this.props.comment.commenter[0]._id}`}>
-              u/{this.props.comment.commenter[0].email}
+              u/{this.props.comment.commenter[0].username}
             </Link>
             &nbsp;{moment(this.props.comment.created_at).from(moment([]))}
           </span>

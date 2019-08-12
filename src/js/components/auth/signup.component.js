@@ -32,17 +32,17 @@ class Login extends Component {
     super(props);
     this.state = {
       errors: [],
-      email: "",
+      username: "",
       password: ""
     };
 
     this.login = this.login.bind(this);
-    this.onChangeEmail = this.onChangeEmail.bind(this);
+    this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
   }
 
-  onChangeEmail(e) {
-    this.setState({ email: e.target.value });
+  onChangeUsername(e) {
+    this.setState({ username: e.target.value });
   }
 
   onChangePassword(e) {
@@ -53,7 +53,7 @@ class Login extends Component {
     e.preventDefault();
 
     const SignupInfo = {
-      email: this.state.email,
+      username: this.state.username,
       password: this.state.password
     };
 
@@ -80,17 +80,17 @@ class Login extends Component {
             ))}
             <form onSubmit={this.login}>
               <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="username">Username</label>
                 <input
                   type="text"
-                  name="email"
-                  id="email"
+                  name="username"
+                  id="username"
                   className="form-control"
-                  placeholder="example@email.com"
-                  aria-describedby="email-field"
-                  onChange={this.onChangeEmail}
+                  placeholder="John Doe"
+                  aria-describedby="username-field"
+                  onChange={this.onChangeUsername}
                 />
-                <small id="email-field" className="text-muted">
+                <small id="username-field" className="text-muted">
                   You need to do it
                 </small>
               </div>

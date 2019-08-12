@@ -3,7 +3,7 @@ const router = express.Router();
 
 router.get("/", (req, res) =>
   res.render("index", {
-    title: `Welcome ${req.user ? req.user.email : "Stranger"}`,
+    title: `Welcome ${req.user ? req.user.username : "Stranger"}`,
     user: req.user
   })
 );

@@ -19,7 +19,7 @@ CommentRouter.route("/:id").get((req, res) => {
 //Show all comments related to given post_id
 CommentRouter.route("/:post_id/post").get(function(req, res) {
   Comment.find({ post: req.params.post_id })
-    .populate("commenter", "email votes")
+    .populate("commenter", "username votes")
     .sort('-votes')
     .exec(function(err, comments) {
       if (err) {

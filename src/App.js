@@ -128,7 +128,7 @@ class App extends Component {
     let logNavEl = $.isEmptyObject(this.state.userSession) ? (
       <LoginSignUp />
     ) : (
-      <Logout user={this.state.userSession.email} handleLogin={this.logout} />
+      <Logout user={this.state.userSession.username} handleLogin={this.logout} />
     );
 
     return (
