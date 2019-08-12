@@ -128,17 +128,18 @@ class App extends Component {
     let logNavEl = $.isEmptyObject(this.state.userSession) ? (
       <LoginSignUp />
     ) : (
-      <Logout user={this.state.userSession.username} handleLogin={this.logout} />
+      <Logout
+        user={this.state.userSession.username}
+        handleLogin={this.logout}
+      />
     );
 
     return (
       <Router>
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
-            <a href="/" className="navbar-brand">
-              <img src={logo} alt="Boop" width="30" height="30" />
-            </a>
             <Link to="/" className="navbar-brand">
+              <img src={logo} alt="Boop" width="30" height="30" />
               Mern-Stack
             </Link>
 
@@ -148,7 +149,10 @@ class App extends Component {
           </nav>
           <br />
           <Switch>
+            {/* Setting keys so react will trigger
+            a re-render and updated the components props */}
             <Route
+              key={0}
               path="/"
               exact
               render={props => (
@@ -156,6 +160,7 @@ class App extends Component {
               )}
             />
             <Route
+              key={1}
               path="/posts/:page"
               render={props => (
                 <PostsPage {...props} userSession={this.state.userSession} />
