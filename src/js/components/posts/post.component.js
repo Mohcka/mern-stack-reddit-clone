@@ -54,6 +54,10 @@ class Post extends Component {
         votes: this.props.post.votes
       });
     }
+
+    if(prevProps.post !== this.props.post){
+      this.userVoteCheck();
+    }
   }
 
   deletePost() {
