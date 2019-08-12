@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import Alert from "./Alert.component";
+
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -35,9 +37,13 @@ class Login extends Component {
       .post("/api/users/login/", loginInfo)
       .then(res => {
         this.props.handleLogin();
-        this.props.history.goBack();
+        this.props.history.goBack(); // back to page user was on previously
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        // Login was quite possibly invalid, show err to user
+        console.error(err);
+        this.setState({flash: ["Username/Password is invalid"]});
+      });
   }
 
   render() {
@@ -45,6 +51,9 @@ class Login extends Component {
       <div className="container my-3">
         <div className="row">
           <div className="col-4 offset-4 bg-light rounded-sm p-4">
+            {this.state.flash.map((flash, ind) => (
+              <Alert key={ind} message={flash}  closeFlash={() => this.setState({flash: []})}/>
+            ))}
             <form onSubmit={this.login}>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
@@ -57,9 +66,6 @@ class Login extends Component {
                   aria-describedby="username-field"
                   onChange={this.onChangeUsername}
                 />
-                <small id="username-field" className="text-muted">
-                  You need to do it
-                </small>
               </div>
               <div className="form-group">
                 <label htmlFor="password">Password</label>
@@ -72,11 +78,12 @@ class Login extends Component {
                   aria-describedby="password-field"
                   onChange={this.onChangePassword}
                 />
-                <small id="password-field" className="text-muted">
-                  It's a secret to only you
-                </small>
               </div>
-              <button type="submit" className="btn btn-primary" value="Sign Up">
+              <button
+                type="submit"
+                className="btn btn-primary"
+                value="Sign Up"
+              >
                 Login
               </button>
             </form>
