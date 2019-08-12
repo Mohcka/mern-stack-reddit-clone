@@ -3,7 +3,7 @@ const router = require("express").Router();
 const Users = require('../../models/Users.model');
 
 //TODO:
-// Get User by id
+//* Get User by id
 router.get('/user/:id', (req, res) => {
   Users.findById(req.params.id, "_id username", (err, user) => {
     if(err)  {
@@ -19,7 +19,7 @@ router.get('/user/:id', (req, res) => {
   })
 });
 
-//
+//* run the signup process
 router.post("/signup", (req, res, next) => {
   const {
     body: { username, password }
@@ -70,12 +70,12 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-//POST login route (optional, everyone has access)
+//* POST login route (optional, everyone has access)
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
   res.json({ user: { username: req.user.username, _id: req.user._id } });
 });
 
-//GET current route (required, only authenticated users have access)
+//* GET current route (required, only authenticated users have access)
 router.get(
   "/current",
   passport.authenticate("local", {
@@ -103,7 +103,7 @@ router.get("/logout", (req, res, next) => {
   res.json({});
 });
 
-// Respond with user if logged in, if not, respond with null
+//* Respond with user if logged in, if not, respond with null
 router.get("/user", (req, res, next) => {
   res.json(
     req.user ? { user: { _id: req.user._id, username: req.user.username } } : {}
