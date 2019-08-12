@@ -9,7 +9,7 @@ let PostWithRouter = withRouter(Post);
 class Posts extends Component {
   constructor(props) {
     super(props);
-    this.state = { posts: [], postCount: 0 };
+    this.state = { posts: [], postCount: 0, pageItem: 0 };
 
     this.postList = this.postList.bind(this);
     this.getPage = this.getPage.bind(this);
@@ -38,11 +38,12 @@ class Posts extends Component {
         // Redirect to 404 if no page was found
         if (response.data.length == 0) {
           console.log(404);
-          
+
           this.props.history.push("/404");
         } else {
           this.setState({
-            posts: response.data
+            posts: response.data,
+            pageItem: page - 1
           });
         }
       })
@@ -81,7 +82,10 @@ class Posts extends Component {
 
     for (let i = 0; i < this.state.count / 2; i++) {
       pagination.push(
-        <li key={i} className="page-item">
+        <li
+          key={i}
+          className={`page-item ${this.state.pageItem == i ? "active" : ""}`}
+        >
           <Link
             className="page-link"
             to={`/posts/${i + 1}`}
@@ -99,17 +103,7 @@ class Posts extends Component {
         <div className="post-pagination">
           <nav aria-label="Page navigation example">
             <ul className="pagination d-flex justify-content-center">
-              <li className="page-item">
-                <a className="page-link" href="#" aria-label="Previous">
-                  <span aria-hidden="true">&laquo;</span>
-                </a>
-              </li>
               {pagination.map(pagi => pagi)}
-              <li className="page-item">
-                <a className="page-link" href="#" aria-label="Next">
-                  <span aria-hidden="true">&raquo;</span>
-                </a>
-              </li>
             </ul>
           </nav>
         </div>
