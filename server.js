@@ -14,10 +14,8 @@ const errorHandler = require("errorhandler");
 
 const credentials = require("./config/credentials.json");
 
-
 const app = express();
 const port = process.env.PORT || 3000;
-
 
 const isDev = process.env.NODE_ENV !== "production";
 const isProd = process.env.NODE_ENV == "production";
@@ -25,9 +23,7 @@ const isProd = process.env.NODE_ENV == "production";
 // DB setup - Mongoose
 mongoose.Promise = global.Promise;
 mongoose.connect(
-  isProd
-    ? credentials.mlab.uri
-    : "mongodb://localhost/reddit-clone",
+  isProd ? credentials.mlab.uri : "mongodb://localhost/reddit-clone",
   { useNewUrlParser: true }
 );
 
@@ -42,7 +38,7 @@ app.use(cookieParser());
 app.use(
   cookieSession({
     secret: "passport-tutorial",
-    maxAge: 600000 
+    maxAge: 600000
   })
 );
 app.use(passport.initialize());
@@ -63,7 +59,6 @@ app.set("view engine", "ejs");
 
 //Set Routes
 
-
 // const PostRouter = require("./routes/PostRouter");
 // const UserRouter = require("./routes/UserRouter");
 
@@ -77,7 +72,11 @@ app.get(/^\/(?!api\/.*\/).*/, function(req, res) {
 // });
 
 // app.use("/reddit-clone-api/posts", PostRouter);
+
 require("./models/_setupdb");
+
+let dbRefresh = setInterval(() => require("./models/_setupdb"), 900000);
+
 require("./config/passport");
 app.use(require("./routes"));
 
