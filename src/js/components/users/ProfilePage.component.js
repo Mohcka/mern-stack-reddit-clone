@@ -7,7 +7,7 @@ import Post from "../posts/post.component";
 const ProfileInfo = props => {
   return (
     <div className="profile-container">
-      <h2>{`${props.post ? props.post.poster[0].email : ""}'s posts`}</h2>
+      <h2>{`${props.post ? props.post.poster[0].username : ""}'s posts`}</h2>
     </div>
   );
 };
@@ -16,7 +16,7 @@ const UserPosts = props => {
   return (
     <div className="user-posts">
       {props.posts.map((post, ind) => {
-        // post.poster = [{_id: props.user._id, email: props.user.email}];
+        // post.poster = [{_id: props.user._id, username: props.user.username}];
         return (
           <Post
             key={ind}

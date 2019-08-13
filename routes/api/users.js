@@ -3,9 +3,9 @@ const router = require("express").Router();
 const Users = require('../../models/Users.model');
 
 //TODO:
-// Get User by id
+//* Get User by id
 router.get('/user/:id', (req, res) => {
-  Users.findById(req.params.id, "_id email", (err, user) => {
+  Users.findById(req.params.id, "_id username", (err, user) => {
     if(err)  {
       console.error(err);
       return res.status(500).json({error: "Internal Server Error"});
@@ -19,16 +19,16 @@ router.get('/user/:id', (req, res) => {
   })
 });
 
-//
+//* run the signup process
 router.post("/signup", (req, res, next) => {
   const {
-    body: { email, password }
+    body: { username, password }
   } = req;
 
-  if (!email) {
+  if (!username) {
     return res.status(422).json({
       errors: {
-        message: "email is required"
+        message: "username is required"
       }
     });
   }
@@ -41,17 +41,17 @@ router.post("/signup", (req, res, next) => {
     });
   }
 
-  Users.findOne({ email: email }, (err, user) => {
+  Users.findOne({ username: username }, (err, user) => {
     if (err) res.send(err);
 
     if (user) {
       return res.status(422).json({
         errors: {
-          message: "email is taken"
+          message: "username is taken"
         }
       });
     } else {
-      const finalUser = new Users({ email: email, password: password });
+      const finalUser = new Users({ username: username, password: password });
 
       finalUser.setPassword(password);
 
@@ -70,12 +70,12 @@ router.post("/signup", (req, res, next) => {
   });
 });
 
-//POST login route (optional, everyone has access)
+//* POST login route (optional, everyone has access)
 router.post("/login", passport.authenticate("local"), (req, res, next) => {
-  res.json({ user: { email: req.user.email, _id: req.user._id } });
+  res.json({ user: { username: req.user.username, _id: req.user._id } });
 });
 
-//GET current route (required, only authenticated users have access)
+//* GET current route (required, only authenticated users have access)
 router.get(
   "/current",
   passport.authenticate("local", {
@@ -103,10 +103,10 @@ router.get("/logout", (req, res, next) => {
   res.json({});
 });
 
-// Respond with user if logged in, if not, respond with null
+//* Respond with user if logged in, if not, respond with null
 router.get("/user", (req, res, next) => {
   res.json(
-    req.user ? { user: { _id: req.user._id, email: req.user.email } } : {}
+    req.user ? { user: { _id: req.user._id, username: req.user.username } } : {}
   );
 });
 

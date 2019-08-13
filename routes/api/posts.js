@@ -12,7 +12,7 @@ const PAGE_LIMIT = 2;
 PostRouter.route("/").get(function(req, res) {
   Post.find()
     .sort("-created_at")
-    .populate("poster", "_id email")
+    .populate("poster", "_id username")
     .limit(2)
     .exec(function(err, posts) {
       if (err) {
@@ -27,7 +27,7 @@ PostRouter.route("/").get(function(req, res) {
 PostRouter.route("/page/:page").get(function(req, res) {
   Post.find()
     .sort("-created_at")
-    .populate("poster", "_id email created_at updated_at")
+    .populate("poster", "_id username created_at updated_at")
     .limit(PAGE_LIMIT)
     .skip(PAGE_LIMIT * (req.params.page - 1))
     .exec(function(err, posts) {
@@ -50,7 +50,7 @@ PostRouter.route("/count").get(function(req, res) {
 PostRouter.route("/user/:id/posts/:page?").get((req, res) => {
   let pageNmbr = req.params.page;
 
-  User.findById(req.params.id, "_id email")
+  User.findById(req.params.id, "_id username")
     .populate("posts", "poster")
     .limit(PAGE_LIMIT)
     .skip(PAGE_LIMIT * (pageNmbr ? pageNmbr - 1 : 0))
@@ -68,7 +68,7 @@ PostRouter.route("/user/:id/posts/:page?").get((req, res) => {
 PostRouter.route("/user/:user_id").get((req, res) => {
   Post.find({ poster: req.params.user_id})
   .select("-comments")
-    .populate("poster", "email")
+    .populate("poster", "username")
     .exec((err, posts) => {
       res.json(posts);
     });
@@ -78,7 +78,7 @@ PostRouter.route("/user/:user_id").get((req, res) => {
 PostRouter.route("/:id").get(function(req, res) {
   let id = req.params.id;
   Post.findById(id)
-  .populate("poster", "email")
+  .populate("poster", "username")
   .exec( function(err, post) {
 
     res.json(post);

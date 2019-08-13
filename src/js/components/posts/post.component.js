@@ -8,7 +8,7 @@ import CrudButtons from "../ui/CrudButtons.component";
 
 const UserLink = props => {
   if (props.post.poster.length && props.post.poster[0]._id !== 0)
-    return <Link to={props.to}>u/{props.post.poster[0].email}</Link>;
+    return <Link to={props.to}>u/{props.post.poster[0].username}</Link>;
 
   return <div className="anonymouse-user">u/anonymous</div>;
 };
@@ -53,6 +53,10 @@ class Post extends Component {
       this.setState({
         votes: this.props.post.votes
       });
+    }
+
+    if(prevProps.post !== this.props.post){
+      this.userVoteCheck();
     }
   }
 
