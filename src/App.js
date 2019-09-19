@@ -35,6 +35,7 @@ import NoMatch from "./js/components/NoMatch.component";
 
 //* Assets
 import logo from "./logo.svg";
+import githubImg from "./assets/github.png";
 
 // Component used to display login/signup navigation
 function LoginSignUp(props) {
@@ -138,11 +139,23 @@ class App extends Component {
       <Router>
         <div className="container">
           <nav className="navbar navbar-expand-lg navbar-light bg-light">
+            <a
+              href="https://github.com/Mohcka/mern-stack-reddit-clone"
+              title="Check the source code!"
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ marginRight: "10px" }}
+            >
+              <img
+                src={githubImg}
+                alt="github"
+                width="20"
+                height="20"
+              />
+            </a>{" "}
             <Link to="/" className="navbar-brand">
-              <img src={logo} alt="Boop" width="30" height="30" />
               Mern-Stack
             </Link>
-
             <div className="collapse navbar-collapse">
               <ul className="navbar-nav ml-auto">{logNavEl}</ul>
             </div>
